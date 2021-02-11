@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/routs.dart';
+import './routs.dart';
 
 import './screens/splash/splash_screen.dart';
 
