@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/error_page/error_screen.dart';
 
 import 'screens/profile/profile_screen.dart';
 import 'screens/cart/cart_screen.dart';
 import 'screens/details/details_screen.dart';
 import 'screens/home/home_screen.dart';
 import 'screens/otp/otp_screen.dart';
-import 'screens/complete_profile/comple_profile_screen.dart';
+import 'screens/complete_profile/complete_profile_screen.dart';
 import 'screens/login_success/login_success_screen.dart';
 import 'screens/sign_up/signup_screen.dart';
 import 'screens/sign_in/sign_in_screen.dart';
@@ -24,4 +25,5 @@ final Map<String, WidgetBuilder> routes = {
   DetailsScreen.routeName: (context) => DetailsScreen(),
   CartScreen.routeName: (context) => CartScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
+  ErrorScreen.routeName: (context) => ErrorScreen(),
 };

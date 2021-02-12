@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "607952056489",
+    "project_id": "shop-app-ad2bb",
+    "storage_bucket": "shop-app-ad2bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607952056489:android:239399011c4ae1394eb9b8",
+        "android_client_info": {
+          "package_name": "ogger.shop_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "607952056489-6ph287r27gntuch9bdapqhals55r4qfm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkoqCTa06V0qIEitOvHcN2_yT1kjAiLfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "607952056489-6ph287r27gntuch9bdapqhals55r4qfm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

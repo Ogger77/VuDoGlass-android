@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/screens/complete_profile/comple_profile_screen.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+import '../../complete_profile/complete_profile_screen.dart';
 import '../../../components/custom_suffix_icon.dart';
 import '../../../components/default_button.dart';
 import '../../../components/form_error.dart';
@@ -15,9 +18,15 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-  String email;
-  String password;
-  String confirm_password;
+  bool _isLoading = false;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  DatabaseReference dbRef =
+      FirebaseDatabase.instance.reference().child('Users');
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPassController = TextEditingController();
+
   final List<String> errors = [];
 
 //error handling
@@ -49,12 +58,15 @@ class _SignUpFormState extends State<SignUpForm> {
           buildConfirmPassFied(),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
+          if (_isLoading) CircularProgressIndicator(),
           DefaultButton(
             text: 'Continue',
             press: () {
               if (_formKey.currentState.validate()) {
-                //Go to complete profile
-                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                setState(() {
+                  _isLoading = true;
+                });
+                registertoFb();
               }
             },
           ),
@@ -65,10 +77,10 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildConfirmPassFied() {
     return TextFormField(
+      controller: confirmPassController,
       obscureText: true,
-      onSaved: (newValue) => confirm_password = newValue,
       onChanged: (value) {
-        if (password == confirm_password) {
+        if (passwordController.text == confirmPassController.text) {
           removeError(error: kMatchPassError);
         }
         return null;
@@ -76,7 +88,7 @@ class _SignUpFormState extends State<SignUpForm> {
       validator: (value) {
         if (value.isEmpty) {
           return '';
-        } else if (password != value) {
+        } else if (passwordController.text != value) {
           addError(error: kMatchPassError);
           return '';
         }
@@ -95,15 +107,15 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
+      controller: passwordController,
       obscureText: true,
-      onSaved: (newValue) => password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
         } else if (value.length >= 8) {
           removeError(error: kShortPassError);
         }
-        password = value;
+        // passwordController = value;
         return null;
       },
       validator: (value) {
@@ -129,8 +141,8 @@ class _SignUpFormState extends State<SignUpForm> {
 
   TextFormField buildEmailFormField() {
     return TextFormField(
+      controller: emailController,
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
@@ -158,5 +170,44 @@ class _SignUpFormState extends State<SignUpForm> {
         ),
       ),
     );
+  }
+
+  void registertoFb() {
+    _auth
+        .createUserWithEmailAndPassword(
+            email: emailController.text, password: passwordController.text)
+        .then((result) {
+      dbRef.child(result.user.uid).set({
+        'email': emailController.text,
+      }).then((res) {
+        _isLoading = false;
+        Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+      });
+    }).catchError((err) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text(err.message),
+              actions: [
+                FlatButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPassController.dispose();
   }
 }

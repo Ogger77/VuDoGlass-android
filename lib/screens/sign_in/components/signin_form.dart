@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'package:flutter/services.dart';
+import 'package:shop_app/screens/home/home_screen.dart';
 
 import '../../../components/custom_suffix_icon.dart';
 import '../../../components/default_button.dart';
@@ -6,7 +10,6 @@ import '../../../components/form_error.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-import '../../../screens/login_success/login_success_screen.dart';
 import '../../../screens/forgot_password/forgot_password_screen.dart';
 
 class SignForm extends StatefulWidget {
@@ -16,9 +19,10 @@ class SignForm extends StatefulWidget {
 
 class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
-  String email;
-  String password;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   bool remember = false;
+  bool _isLoading = false;
   final List<String> errors = [];
 
   void addError({String error}) {
@@ -70,16 +74,22 @@ class _SignFormState extends State<SignForm> {
               )
             ],
           ),
-          DefaultButton(
-            text: 'Continue',
-            press: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
-                //if all are valid => go to successs screen
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-              }
-            },
-          ),
+          if (_isLoading)
+            CircularProgressIndicator()
+          else
+            DefaultButton(
+              text: 'Continue',
+              press: () {
+                if (_formKey.currentState.validate()) {
+                  _formKey.currentState.save();
+                  setState(() {
+                    _isLoading = true;
+                  });
+                  logIntoFb();
+                }
+              },
+              //if all are valid => go to successs screen
+            ),
         ],
       ),
     );
@@ -88,7 +98,7 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => password = newValue,
+      controller: passwordController,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
@@ -121,7 +131,7 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      controller: emailController,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
@@ -149,5 +159,35 @@ class _SignFormState extends State<SignForm> {
         ),
       ),
     );
+  }
+
+  void logIntoFb() {
+    FirebaseAuth.instance
+        .signInWithEmailAndPassword(
+      email: emailController.text,
+      password: passwordController.text,
+    )
+        .then((result) {
+      _isLoading = false;
+      Navigator.pushNamed(context, HomeScreen.routeName);
+    }).catchError((err) {
+      print(err.message);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text(err.message),
+              actions: [
+                FlatButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    });
   }
 }

@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import '../../../screens/otp/otp_screen.dart';
@@ -16,10 +18,17 @@ class CompleteProfileForm extends StatefulWidget {
 
 class _CompleteProfileFormState extends State<CompleteProfileForm> {
   final _formKey = GlobalKey<FormState>();
-  String firstName;
-  String lastName;
-  String phoneNumber;
-  String address;
+
+  bool _isLoading = false;
+  var _currentUser = FirebaseAuth.instance.currentUser;
+  DatabaseReference dbRef =
+      FirebaseDatabase.instance.reference().child('Users');
+
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+
   final List<String> errors = [];
 
 //error handling
@@ -53,12 +62,16 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           buildAddressFormField(),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
+          if (_isLoading) CircularProgressIndicator(),
           DefaultButton(
             text: 'Continue',
             press: () {
               if (_formKey.currentState.validate()) {
-                //GO to OTP screen
-                Navigator.pushNamed(context, OtpScreen.routeName);
+                setState(() {
+                  _isLoading = true;
+                });
+                //Go to OTP screen
+                updateUsertoFb();
               }
             },
           )
@@ -69,7 +82,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildAddressFormField() {
     return TextFormField(
-      onSaved: (newValue) => address = newValue,
+      controller: addressController,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kAddressNullError);
@@ -97,7 +110,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   TextFormField buildPhoneNumberFormField() {
     return TextFormField(
       keyboardType: TextInputType.number,
-      onSaved: (newValue) => phoneNumber = newValue,
+      controller: phoneNumberController,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPhoneNumberNullError);
@@ -124,7 +137,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildLastNameFormField() {
     return TextFormField(
-      onSaved: (newValue) => lastName = newValue,
+      controller: lastNameController,
       decoration: InputDecoration(
         labelText: 'Last Name',
         hintText: 'Enter your last name',
@@ -138,7 +151,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
 
   TextFormField buildFirstNameFormField() {
     return TextFormField(
-      onSaved: (newValue) => firstName = newValue,
+      controller: firstNameController,
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kNameNullError);
@@ -161,5 +174,43 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         ),
       ),
     );
+  }
+
+  void updateUsertoFb() {
+    dbRef.child(_currentUser.uid).update({
+      'firstName': firstNameController.text,
+      'lastName': lastNameController.text,
+      'phoneNumber': phoneNumberController.text,
+      'address': addressController.text,
+    }).then((res) {
+      _isLoading = false;
+      Navigator.pushNamed(context, OtpScreen.routeName);
+    }).catchError((err) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Error"),
+              content: Text(err.message),
+              actions: [
+                FlatButton(
+                  child: Text("Ok"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            );
+          });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    phoneNumberController.dispose();
+    addressController.dispose();
   }
 }
