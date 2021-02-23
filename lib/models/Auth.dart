@@ -34,6 +34,13 @@ class Auth with ChangeNotifier {
     return _userPhone;
   }
 
+  getRemmeberMeValue() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    bool boolValue = prefs.getBool('kRemember');
+    return boolValue;
+  }
+
   Future<void> _authenticate(
       String email, String password, String urlSegment) async {
     final url =
@@ -66,14 +73,17 @@ class Auth with ChangeNotifier {
       _autoLogout();
       notifyListeners();
       final prefs = await SharedPreferences.getInstance();
-      final userData = json.encode(
-        {
-          'token': _token,
-          'userId': _userId,
-          'expiryDate': _expiryDate.toIso8601String(),
-        },
-      );
-      prefs.setString('userData', userData);
+
+      if (prefs.containsKey('kRemember')) {
+        final userData = json.encode(
+          {
+            'token': _token,
+            'userId': _userId,
+            'expiryDate': _expiryDate.toIso8601String(),
+          },
+        );
+        prefs.setString('userData', userData);
+      }
     } catch (error) {
       throw error;
     }
@@ -121,6 +131,7 @@ class Auth with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
 
     prefs.remove('userData');
+    prefs.remove('kRemember');
   }
 
   void _autoLogout() {

@@ -40,17 +40,17 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'VuDoGlass',
           theme: theme(),
-          // home: auth.isAuth
-          //     ? HomeScreen()
-          //     : FutureBuilder(
-          //         future: auth.tryAutoLogin(),
-          //         builder: (ctx, authResultSnapshot) =>
-          //             authResultSnapshot.connectionState ==
-          //                     ConnectionState.waiting
-          //                 ? SplashScreen() //add loading screen with jumping dots
-          //                 : SplashScreen(),
-          //       ),
-          initialRoute: SplashScreen.routeName,
+          home: auth.isAuth
+              ? HomeScreen()
+              : FutureBuilder(
+                  future: auth.tryAutoLogin(),
+                  builder: (ctx, authResultSnapshot) => authResultSnapshot
+                              .connectionState ==
+                          ConnectionState.waiting
+                      ? SplashScreen() //add loading screen with jumping dots
+                      : SignInScreen(),
+                ),
+          // initialRoute: SplashScreen.routeName,
           routes: routes,
         ),
       ),

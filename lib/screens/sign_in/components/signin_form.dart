@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../components/jumpingDots_button.dart';
 import '../../../components/custom_suffix_icon.dart';
@@ -26,7 +28,7 @@ class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  bool remember = false;
+  bool kRemember = false;
   bool _isLoading = false;
 
   //manual auth
@@ -52,6 +54,12 @@ class _SignFormState extends State<SignForm> {
     }
   }
 
+  //remember me
+  Future<void> _rememberMe(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('kRemember', value);
+  }
+
   //auth
   Future<void> _submit() async {
     if (!_formKey.currentState.validate()) {
@@ -68,6 +76,7 @@ class _SignFormState extends State<SignForm> {
         _authData['email'],
         _authData['password'],
       );
+
       Navigator.pushNamed(context, HomeScreen.routeName);
     } on HttpException catch (error) {
       if (error.toString().contains('EMAIL_NOT_FOUND')) {
@@ -98,11 +107,12 @@ class _SignFormState extends State<SignForm> {
           Row(
             children: [
               Checkbox(
-                value: remember,
+                value: kRemember,
                 activeColor: kPrimaryColor,
                 onChanged: (value) {
                   setState(() {
-                    remember = value;
+                    kRemember = value;
+                    _rememberMe(true);
                   });
                 },
               ),
