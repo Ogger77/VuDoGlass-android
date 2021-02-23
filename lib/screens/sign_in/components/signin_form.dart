@@ -1,15 +1,20 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-
 import 'package:flutter/services.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:provider/provider.dart';
 
+import '../../../components/jumpingDots_button.dart';
 import '../../../components/custom_suffix_icon.dart';
 import '../../../components/default_button.dart';
 import '../../../components/form_error.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
+import '../../../models/http_exception.dart';
+import '../../../models/Auth.dart';
+
+import '../../../screens/home/home_screen.dart';
 import '../../../screens/forgot_password/forgot_password_screen.dart';
 
 class SignForm extends StatefulWidget {
@@ -23,6 +28,13 @@ class _SignFormState extends State<SignForm> {
   TextEditingController passwordController = TextEditingController();
   bool remember = false;
   bool _isLoading = false;
+
+  //manual auth
+  Map<String, String> _authData = {
+    'email': '',
+    'password': '',
+  };
+
   final List<String> errors = [];
 
   void addError({String error}) {
@@ -40,12 +52,44 @@ class _SignFormState extends State<SignForm> {
     }
   }
 
+  //auth
+  Future<void> _submit() async {
+    if (!_formKey.currentState.validate()) {
+      // Invalid!
+      return;
+    }
+    _formKey.currentState.save();
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      // Log user in
+      await Provider.of<Auth>(context, listen: false).login(
+        _authData['email'],
+        _authData['password'],
+      );
+      Navigator.pushNamed(context, HomeScreen.routeName);
+    } on HttpException catch (error) {
+      if (error.toString().contains('EMAIL_NOT_FOUND')) {
+        addError(error: kEmailNotFound);
+      }
+    } catch (error) {
+      print(error);
+      const errorMessage = 'Could not authenticate you. Please try again';
+      addError(error: errorMessage);
+    }
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
       child: Column(
         children: [
+          SizedBox(height: getProportionateScreenHeight(30)),
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
@@ -71,25 +115,24 @@ class _SignFormState extends State<SignForm> {
                   'Forgot Password',
                   style: TextStyle(decoration: TextDecoration.underline),
                 ),
-              )
+              ),
             ],
           ),
-          if (_isLoading)
-            CircularProgressIndicator()
-          else
-            DefaultButton(
-              text: 'Continue',
-              press: () {
-                if (_formKey.currentState.validate()) {
-                  _formKey.currentState.save();
-                  setState(() {
-                    _isLoading = true;
-                  });
-                  logIntoFb();
-                }
-              },
-              //if all are valid => go to successs screen
-            ),
+          Container(
+            child: _isLoading
+                ? JumpingDotsButton()
+                : DefaultButton(
+                    // text: _isLoading ? 'Working on it ...' : 'Continue',
+                    text: 'Continue',
+                    press: () {
+                      if (_formKey.currentState.validate()) {
+                        _formKey.currentState.save();
+                        _submit();
+                      }
+                      return;
+                    },
+                  ),
+          ),
         ],
       ),
     );
@@ -99,6 +142,9 @@ class _SignFormState extends State<SignForm> {
     return TextFormField(
       obscureText: true,
       controller: passwordController,
+      onSaved: (value) {
+        _authData['password'] = value;
+      },
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kPassNullError);
@@ -132,6 +178,9 @@ class _SignFormState extends State<SignForm> {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
       controller: emailController,
+      onSaved: (value) {
+        _authData['email'] = value;
+      },
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: kEmailNullError);
@@ -159,35 +208,5 @@ class _SignFormState extends State<SignForm> {
         ),
       ),
     );
-  }
-
-  void logIntoFb() {
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(
-      email: emailController.text,
-      password: passwordController.text,
-    )
-        .then((result) {
-      _isLoading = false;
-      Navigator.pushNamed(context, HomeScreen.routeName);
-    }).catchError((err) {
-      print(err.message);
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Error"),
-              content: Text(err.message),
-              actions: [
-                FlatButton(
-                  child: Text("Ok"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ],
-            );
-          });
-    });
   }
 }

@@ -1,10 +1,29 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 import 'otp_form.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  var _currentUser = FirebaseAuth.instance.currentUser;
+
+  // DatabaseReference dbRef = FirebaseDatabase.instance
+  //     .reference()
+  //     .child('Users')
+
+  // void getUserPhone() {
+  //   dbRef.once().then((DataSnapshot snapshot) {
+  //     var value = snapshot.value;
+  //     print(value);
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -17,7 +36,7 @@ class Body extends StatelessWidget {
             children: [
               SizedBox(height: SizeConfig.screenHeight * 0.05),
               Text('OTP verification', style: headingStyle),
-              Text('We sent a code to +1 908 879 ***'),
+              // FutureBuilder(builder: ,)
               buildTimer(),
               SizedBox(height: SizeConfig.screenHeight * 0.15),
               OtpForm(),
@@ -25,6 +44,7 @@ class Body extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   //resend OTP code
+                  // getUserPhone();
                 },
                 child: Text(
                   'Resend OTP Code',

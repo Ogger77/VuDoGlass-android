@@ -36,7 +36,7 @@ class Body extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: SizeConfig.screenHeight * 0.08,
+                  height: SizeConfig.screenHeight * 0.03,
                 ),
                 SignForm(),
                 SizedBox(

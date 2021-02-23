@@ -35,6 +35,13 @@ const String kNameNullError = 'Please Enter your name';
 const String kPhoneNumberNullError = 'Please Enter your phone number';
 const String kAddressNullError = 'Please Enter your address';
 
+const String kNoAccountExist = 'No account exist';
+const String kEmailExist = 'email already in use';
+const String kEmailNotFound = 'No user associate with that email';
+const String kInvalidPassword = 'Invalid Password';
+
+const String kALreadyAunthenticated = 'already authenticated.';
+
 final otpInputDecoration = InputDecoration(
   contentPadding:
       EdgeInsets.symmetric(vertical: getProportionateScreenWidth(15)),

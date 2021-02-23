@@ -1,12 +1,15 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-class Product {
-  final int id;
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+class Product with ChangeNotifier {
+  final String id;
   final String title, description;
   final List<String> images;
   final List<Color> colors;
   final double rating, price;
-  final bool isFavourite, isPopular;
+  bool isFavourite, isPopular;
 
   Product({
     @required this.id,
@@ -19,12 +22,64 @@ class Product {
     this.isFavourite = false,
     this.isPopular = false,
   });
+
+  Product copyWith({
+    String id,
+    String title,
+    String description,
+    double price,
+    double rating,
+    String images,
+    Color colors,
+    bool isFavourite,
+    bool isPopular,
+  }) {
+    return Product(
+      //if id is null then set it eual to this.id
+      //?? = if null
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      price: price ?? this.price,
+      rating: rating ?? this.rating,
+      images: images ?? this.images,
+      isFavourite: isFavourite ?? this.isFavourite,
+      isPopular: isPopular ?? this.isPopular,
+      colors: colors ?? this.colors,
+    );
+  }
+
+  void _setFavValue(bool newValue) {
+    isFavourite = newValue;
+    notifyListeners();
+  }
+
+  Future<void> toggleFavoriteStatus(String token, String userId) async {
+    final oldStatus = isFavourite;
+    isFavourite = !isFavourite;
+    notifyListeners();
+    final url =
+        'https://shop-app-ad2bb-default-rtdb.firebaseio.com/userFavorites/$userId/$id.json?auth=$token';
+    try {
+      final response = await http.put(
+        url,
+        body: json.encode(
+          isFavourite,
+        ),
+      );
+      if (response.statusCode >= 400) {
+        _setFavValue(oldStatus);
+      }
+    } catch (error) {
+      _setFavValue(oldStatus);
+    }
+  }
 }
 
 //demo prodcut
 List<Product> demoProducts = [
   Product(
-    id: 1,
+    id: '1',
     images: [
       "assets/images/ps4_console_white_1.png",
       "assets/images/ps4_console_white_2.png",
@@ -45,7 +100,7 @@ List<Product> demoProducts = [
     isPopular: true,
   ),
   Product(
-    id: 2,
+    id: '2',
     images: [
       "assets/images/Image Popular Product 2.png",
     ],
@@ -62,7 +117,7 @@ List<Product> demoProducts = [
     isPopular: true,
   ),
   Product(
-    id: 3,
+    id: '3',
     images: [
       "assets/images/glap.png",
     ],
@@ -80,7 +135,7 @@ List<Product> demoProducts = [
     isPopular: true,
   ),
   Product(
-    id: 4,
+    id: '4',
     images: [
       "assets/images/wireless headset.png",
     ],

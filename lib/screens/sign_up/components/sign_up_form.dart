@@ -58,9 +58,8 @@ class _SignUpFormState extends State<SignUpForm> {
           buildConfirmPassFied(),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
-          if (_isLoading) CircularProgressIndicator(),
           DefaultButton(
-            text: 'Continue',
+            text: _isLoading ? 'Working on it...' : 'Continue',
             press: () {
               if (_formKey.currentState.validate()) {
                 setState(() {
@@ -184,22 +183,11 @@ class _SignUpFormState extends State<SignUpForm> {
         Navigator.pushNamed(context, CompleteProfileScreen.routeName);
       });
     }).catchError((err) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text("Error"),
-              content: Text(err.message),
-              actions: [
-                FlatButton(
-                  child: Text("Ok"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
-              ],
-            );
-          });
+      print(err.message);
+      setState(() {
+        addError(error: kNoAccountExist);
+        _isLoading = false;
+      });
     });
   }
 

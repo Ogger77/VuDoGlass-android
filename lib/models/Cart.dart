@@ -1,17 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
 import 'Product.dart';
 
-class Cart {
+class CartItem {
   final Product product;
   final int numOfItems;
+  final double price;
 
-  Cart({@required this.product, @required this.numOfItems});
+  CartItem({
+    @required this.product,
+    @required this.numOfItems,
+    this.price,
+  });
+}
+
+class Cart with ChangeNotifier {
+  Map<String, CartItem> _items = {};
+
+  Map<String, CartItem> get items {
+    return {...items};
+  }
+
+  int get itemCount {
+    return _items.length;
+  }
+
+  double get totalAmount {
+    var total = 0.0;
+    _items.forEach((key, cartItem) {
+      total += cartItem.price * cartItem.numOfItems;
+    });
+    return total;
+  }
 }
 
 //demo data for cart
-List<Cart> demoCarts = [
-  Cart(product: demoProducts[0], numOfItems: 2),
-  Cart(product: demoProducts[1], numOfItems: 1),
-  Cart(product: demoProducts[3], numOfItems: 1),
+List<CartItem> demoCarts = [
+  CartItem(
+    product: demoProducts[0],
+    numOfItems: 2,
+    price: 2,
+  ),
+  CartItem(
+    product: demoProducts[1],
+    numOfItems: 1,
+    price: 2,
+  ),
+  CartItem(
+    product: demoProducts[3],
+    numOfItems: 1,
+    price: 2,
+  ),
 ];

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/components/jumping_dots.dart';
 import 'package:shop_app/screens/error_page/error_screen.dart';
+import 'package:shop_app/screens/otp/test_otp.dart';
 
 import 'screens/profile/profile_screen.dart';
 import 'screens/cart/cart_screen.dart';
@@ -26,4 +28,6 @@ final Map<String, WidgetBuilder> routes = {
   CartScreen.routeName: (context) => CartScreen(),
   ProfileScreen.routeName: (context) => ProfileScreen(),
   ErrorScreen.routeName: (context) => ErrorScreen(),
+  TestOtpScreen.routeName: (context) => TestOtpScreen(),
+  JumpingDots.routeName: (context) => JumpingDots(),
 };
