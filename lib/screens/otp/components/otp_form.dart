@@ -205,7 +205,7 @@ class _OtpFormState extends State<OtpForm> {
           codeSent: codeSent,
           codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
     } catch (e) {
-      showSnackbar("Failed to Verify Phone Number: ${e}");
+      showSnackbar("Failed to Verify Phone Number: $e");
     }
   }
 

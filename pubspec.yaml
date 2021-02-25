@@ -35,6 +35,8 @@ dependencies:
   shared_preferences: ^0.5.12+4
   http: ^0.12.2
   intl: ^0.16.1
+  google_sign_in: ^4.5.4
+  flutter_webview_plugin: ^0.3.10+1
 
 dev_dependencies:
   flutter_test:

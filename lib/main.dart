@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/components/jumping_dots.dart';
-import 'package:shop_app/screens/otp/test_otp.dart';
 
 import './routs.dart';
 import './screens/splash/splash_screen.dart';
@@ -50,7 +48,7 @@ class MyApp extends StatelessWidget {
                       ? SplashScreen() //add loading screen with jumping dots
                       : SignInScreen(),
                 ),
-          // initialRoute: SplashScreen.routeName,
+          // initialRoute: TestGitHub.routeName,
           routes: routes,
         ),
       ),

@@ -145,7 +145,7 @@ class _TestOtpScreenState extends State<TestOtpScreen> {
           codeSent: codeSent,
           codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
     } catch (e) {
-      showSnackbar("Failed to Verify Phone Number: ${e}");
+      showSnackbar("Failed to Verify Phone Number: $e");
     }
   }
 }
