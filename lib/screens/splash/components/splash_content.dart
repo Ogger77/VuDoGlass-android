@@ -20,7 +20,7 @@ class SplashContent extends StatelessWidget {
         Text(
           'VuDoGlass',
           style: TextStyle(
-            fontSize: getProportionateScreenWidth(36),
+            fontSize: getProportionScreenWidth(36),
             color: kPrimaryColor,
             fontWeight: FontWeight.bold,
           ),
@@ -28,12 +28,15 @@ class SplashContent extends StatelessWidget {
         Text(
           text,
           textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: getProportionScreenWidth(14),
+          ),
         ),
         Spacer(flex: 2),
         Image.asset(
           image,
-          height: getProportionateScreenHeight(265),
-          width: getProportionateScreenHeight(235),
+          height: getProportionScreenHeight(265),
+          width: getProportionScreenHeight(235),
         ),
       ],
     );

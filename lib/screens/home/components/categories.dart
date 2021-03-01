@@ -15,7 +15,7 @@ class Categories extends StatelessWidget {
     ];
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: getProportionateScreenWidth(20),
+        horizontal: getProportionScreenWidth(20),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,13 +51,13 @@ class CategoryCard extends StatelessWidget {
     return GestureDetector(
       onTap: press,
       child: SizedBox(
-        width: getProportionateScreenWidth(55),
+        width: getProportionScreenWidth(55),
         child: Column(
           children: [
             AspectRatio(
               aspectRatio: 1,
               child: Container(
-                padding: EdgeInsets.all(getProportionateScreenWidth(15)),
+                padding: EdgeInsets.all(getProportionScreenWidth(15)),
                 decoration: BoxDecoration(
                   color: Color(0xFFFFECDF),
                   borderRadius: BorderRadius.circular(10),

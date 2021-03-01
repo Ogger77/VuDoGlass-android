@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
@@ -36,20 +37,21 @@ class Cart with ChangeNotifier {
 }
 
 //demo data for cart
-List<CartItem> demoCarts = [
-  CartItem(
-    product: demoProducts[0],
-    numOfItems: 2,
-    price: 2,
-  ),
-  CartItem(
-    product: demoProducts[1],
-    numOfItems: 1,
-    price: 2,
-  ),
-  CartItem(
-    product: demoProducts[3],
-    numOfItems: 1,
-    price: 2,
-  ),
-];
+
+// List<CartItem> demoCarts = [
+//   CartItem(
+//     product: demoProducts[0],
+//     numOfItems: 2,
+//     price: 2,
+//   ),
+//   CartItem(
+//     product: demoProducts[1],
+//     numOfItems: 1,
+//     price: 2,
+//   ),
+//   CartItem(
+//     product: demoProducts[3],
+//     numOfItems: 1,
+//     price: 2,
+//   ),
+// ];

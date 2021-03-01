@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import './size_config.dart';
 
-const kPrimaryColor = Color(0xFFFF7643);
+var kPrimaryColor = Colors.lightGreenAccent.shade700;
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
@@ -15,7 +15,7 @@ const kTextColor = Color(0xFF757575);
 const kAnimationDuration = Duration(milliseconds: 200);
 
 final headingStyle = TextStyle(
-  fontSize: getProportionateScreenWidth(28),
+  fontSize: getProportionScreenWidth(28),
   fontWeight: FontWeight.bold,
   color: Colors.black,
   height: 1.5,
@@ -43,8 +43,7 @@ const String kInvalidPassword = 'Invalid Password';
 const String kALreadyAunthenticated = 'already authenticated.';
 
 final otpInputDecoration = InputDecoration(
-  contentPadding:
-      EdgeInsets.symmetric(vertical: getProportionateScreenWidth(15)),
+  contentPadding: EdgeInsets.symmetric(vertical: getProportionScreenWidth(15)),
   enabledBorder: outlineInputBorder(),
   focusedBorder: outlineInputBorder(),
   border: outlineInputBorder(),

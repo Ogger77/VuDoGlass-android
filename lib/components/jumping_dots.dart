@@ -15,8 +15,6 @@ class DotWidget extends StatelessWidget {
 }
 
 class JumpingDots extends StatefulWidget {
-  static String routeName = '/testjumpingDot';
-
   final int numberOfDots;
   const JumpingDots({Key key, this.numberOfDots = 3}) : super(key: key);
   @override

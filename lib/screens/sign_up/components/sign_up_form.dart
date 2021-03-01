@@ -52,12 +52,12 @@ class _SignUpFormState extends State<SignUpForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionScreenHeight(30)),
           buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionScreenHeight(30)),
           buildConfirmPassFied(),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(40)),
+          SizedBox(height: getProportionScreenHeight(40)),
           DefaultButton(
             text: _isLoading ? 'Working on it...' : 'Continue',
             press: () {

@@ -17,7 +17,7 @@ class CartItemCard extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: getProportionateScreenWidth(88),
+          width: getProportionScreenWidth(88),
           child: AspectRatio(
             aspectRatio: 0.88,
             child: Container(
@@ -30,7 +30,7 @@ class CartItemCard extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: getProportionateScreenWidth(20)),
+        SizedBox(width: getProportionScreenWidth(20)),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

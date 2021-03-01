@@ -20,7 +20,7 @@ class PopularProducts extends StatelessWidget {
           text: 'Popular Product',
           press: () {},
         ),
-        SizedBox(height: getProportionateScreenWidth(20)),
+        SizedBox(height: getProportionScreenWidth(20)),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
@@ -37,7 +37,7 @@ class PopularProducts extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: getProportionateScreenWidth(20)),
+              SizedBox(width: getProportionScreenWidth(20)),
             ],
           ),
         ),

@@ -14,8 +14,8 @@ class CheckOutCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-        vertical: getProportionateScreenWidth(15),
-        horizontal: getProportionateScreenWidth(30),
+        vertical: getProportionScreenWidth(15),
+        horizontal: getProportionScreenWidth(30),
       ),
       // height: 174,
       decoration: BoxDecoration(
@@ -40,8 +40,8 @@ class CheckOutCard extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.all(10),
-                  height: getProportionateScreenWidth(40),
-                  width: getProportionateScreenWidth(40),
+                  height: getProportionScreenWidth(40),
+                  width: getProportionScreenWidth(40),
                   decoration: BoxDecoration(
                     color: Color(0xFFF5F6F9),
                     borderRadius: BorderRadius.circular(10),
@@ -54,7 +54,7 @@ class CheckOutCard extends StatelessWidget {
                 Icon(Icons.arrow_forward_ios, size: 12, color: kTextColor),
               ],
             ),
-            SizedBox(height: getProportionateScreenHeight(20)),
+            SizedBox(height: getProportionScreenHeight(20)),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -70,7 +70,7 @@ class CheckOutCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: getProportionateScreenWidth(190),
+                  width: getProportionScreenWidth(190),
                   child: DefaultButton(
                     text: 'Check Out',
                     press: () {},

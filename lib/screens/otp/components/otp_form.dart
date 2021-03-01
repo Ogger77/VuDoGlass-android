@@ -58,7 +58,7 @@ class _OtpFormState extends State<OtpForm> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: getProportionateScreenWidth(60),
+                width: getProportionScreenWidth(60),
                 child: TextFormField(
                   autofocus: true,
                   obscureText: true,
@@ -74,7 +74,7 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(60),
+                width: getProportionScreenWidth(60),
                 child: TextFormField(
                   focusNode: pin2FocusNode,
                   obscureText: true,
@@ -89,7 +89,7 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(60),
+                width: getProportionScreenWidth(60),
                 child: TextFormField(
                   focusNode: pin3FocusNode,
                   obscureText: true,
@@ -104,7 +104,7 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(60),
+                width: getProportionScreenWidth(60),
                 child: TextFormField(
                   focusNode: pin4FocusNode,
                   obscureText: true,
@@ -119,7 +119,7 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(60),
+                width: getProportionScreenWidth(60),
                 child: TextFormField(
                   focusNode: pin4FocusNode,
                   obscureText: true,
@@ -134,7 +134,7 @@ class _OtpFormState extends State<OtpForm> {
                 ),
               ),
               SizedBox(
-                width: getProportionateScreenWidth(60),
+                width: getProportionScreenWidth(60),
                 child: TextFormField(
                   focusNode: pin4FocusNode,
                   obscureText: true,

@@ -23,7 +23,7 @@ class ProductDescription extends StatelessWidget {
       children: [
         Padding(
           padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+              EdgeInsets.symmetric(horizontal: getProportionScreenWidth(20)),
           child: Text(
             product.title,
             style: Theme.of(context).textTheme.headline6,
@@ -33,8 +33,8 @@ class ProductDescription extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: Container(
-            padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-            width: getProportionateScreenWidth(64),
+            padding: EdgeInsets.all(getProportionScreenWidth(15)),
+            width: getProportionScreenWidth(64),
             decoration: BoxDecoration(
               color:
                   product.isFavourite ? Color(0xFFFFE6E6) : Color(0xFFF5F6F9),
@@ -52,8 +52,8 @@ class ProductDescription extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.only(
-            left: getProportionateScreenWidth(20),
-            right: getProportionateScreenWidth(64),
+            left: getProportionScreenWidth(20),
+            right: getProportionScreenWidth(64),
           ),
           child: Text(
             product.description,
@@ -62,7 +62,7 @@ class ProductDescription extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: getProportionateScreenWidth(20),
+            horizontal: getProportionScreenWidth(20),
             vertical: 10,
           ),
           child: GestureDetector(

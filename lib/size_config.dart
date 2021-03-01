@@ -15,15 +15,15 @@ class SizeConfig {
   }
 }
 
-//Get the proportionate height as per screen size
-double getProportionateScreenHeight(double inputHeight) {
+//Get the proportione height as per screen size
+double getProportionScreenHeight(double inputHeight) {
   double screenHeight = SizeConfig.screenHeight;
   //experimental
   return (inputHeight / 812.0) * screenHeight;
 }
 
-//Get the proportinate width as per screen size
-double getProportionateScreenWidth(double inputWidth) {
+//Get the proportion width as per screen size
+double getProportionScreenWidth(double inputWidth) {
   double screenWidth = SizeConfig.screenWidth;
   return (inputWidth / 375.0) * screenWidth;
 }

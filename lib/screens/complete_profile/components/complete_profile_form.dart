@@ -54,14 +54,14 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       child: Column(
         children: [
           buildFirstNameFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionScreenHeight(30)),
           buildLastNameFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionScreenHeight(30)),
           buildPhoneNumberFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionScreenHeight(30)),
           buildAddressFormField(),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(40)),
+          SizedBox(height: getProportionScreenHeight(40)),
           if (_isLoading) CircularProgressIndicator(),
           DefaultButton(
             text: _isLoading ? 'Working on it...' : 'Continue',

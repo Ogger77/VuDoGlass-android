@@ -1,16 +1,19 @@
-import 'package:google_sign_in/google_sign_in.dart';
+import 'dart:async';
 
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:shop_app/constants.dart';
+
+import '../../home/home_screen.dart';
 
 import '../../../size_config.dart';
-
-import '../../../screens/sign_in/components/signin_form.dart';
-
 import '../../../components/no_account_text.dart';
 import '../../../components/social_card.dart';
+
+import 'Twitter_login_screen.dart';
 import 'custom_web_view.dart';
+import 'signin_form.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -47,7 +50,9 @@ class _BodyState extends State<Body> {
         .then((userCredential) => {
               setState(() => {user = userCredential})
             });
-    Navigator.pushNamed(context, HomeScreen.routeName);
+    showSnackBar(context);
+    var timer = new Timer(new Duration(seconds: 3),
+        () => Navigator.pushNamed(context, HomeScreen.routeName));
   }
 
   //facebook signin
@@ -76,6 +81,46 @@ class _BodyState extends State<Body> {
     }
   }
 
+  //twitter sign in
+  void signInWithTwitter() async {
+    var result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TwitterLoginScreen(
+          consumerKey: 'QGgAKbMUIAgmLOQbmOK81Au77',
+          consumerSecret: 'kFodEiMe9mBidslRxlTZDkonfLZdN98j7PZLlJtjCdGgjLRLqO',
+          oauthCallbackHandler:
+              'https://shop-app-ad2bb.firebaseapp.com/__/auth/handler',
+        ),
+      ),
+    );
+    print(result);
+    // Create a credential from the access token
+    final AuthCredential twitterAuthCredential = TwitterAuthProvider.credential(
+        accessToken: result.token, secret: result.secret);
+
+    // Once signed in, return the UserCredential
+    await FirebaseAuth.instance.signInWithCredential(twitterAuthCredential);
+  }
+
+  void showSnackBar(BuildContext context) async {
+    final snackBar = SnackBar(
+      //add user name
+      content: Text('Welcome back, Dinh'),
+      backgroundColor: kPrimaryColor,
+      behavior: SnackBarBehavior.floating,
+      duration: const Duration(seconds: 3),
+      action: SnackBarAction(
+        label: 'Continue',
+        textColor: Colors.white,
+        onPressed: () {
+          Navigator.pushNamed(context, HomeScreen.routeName);
+        },
+      ),
+    );
+    Scaffold.of(context).showSnackBar(snackBar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -83,7 +128,7 @@ class _BodyState extends State<Body> {
         width: double.infinity,
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: getProportionateScreenWidth(20),
+            horizontal: getProportionScreenWidth(20),
           ),
           child: SingleChildScrollView(
             child: Column(
@@ -94,8 +139,8 @@ class _BodyState extends State<Body> {
                 Text(
                   'Welcome Back',
                   style: TextStyle(
-                    color: Colors.black,
-                    fontSize: getProportionateScreenWidth(28),
+                    color: kPrimaryColor,
+                    fontSize: getProportionScreenWidth(28),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -127,14 +172,20 @@ class _BodyState extends State<Body> {
                     ),
                     SocialCard(
                       icon: 'assets/icons/twitter.svg',
-                      press: () {},
+                      press: () {
+                        //wait for approval from twitter
+                        signInWithTwitter();
+                      },
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: getProportionateScreenHeight(20),
+                  height: getProportionScreenHeight(20),
                 ),
-                NoAccountText()
+                NoAccountText(),
+                SizedBox(
+                  height: getProportionScreenHeight(20),
+                ),
               ],
             ),
           ),

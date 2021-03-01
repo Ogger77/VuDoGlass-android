@@ -22,17 +22,17 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+      padding: EdgeInsets.only(left: getProportionScreenWidth(20)),
       child: GestureDetector(
         onTap: press,
         child: SizedBox(
-          width: getProportionateScreenWidth(width),
+          width: getProportionScreenWidth(width),
           child: Column(
             children: [
               AspectRatio(
                 aspectRatio: aspectRate,
                 child: Container(
-                  padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+                  padding: EdgeInsets.all(getProportionScreenWidth(20)),
                   decoration: BoxDecoration(
                     color: kSecondaryColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(15),
@@ -52,7 +52,7 @@ class ProductCard extends StatelessWidget {
                   Text(
                     '\$${product.price}',
                     style: TextStyle(
-                      fontSize: getProportionateScreenWidth(18),
+                      fontSize: getProportionScreenWidth(18),
                       fontWeight: FontWeight.w600,
                       color: kPrimaryColor,
                     ),
@@ -62,9 +62,9 @@ class ProductCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(30),
                     onTap: () {},
                     child: Container(
-                      padding: EdgeInsets.all(getProportionateScreenWidth(8)),
-                      width: getProportionateScreenWidth(28),
-                      height: getProportionateScreenWidth(28),
+                      padding: EdgeInsets.all(getProportionScreenWidth(8)),
+                      width: getProportionScreenWidth(28),
+                      height: getProportionScreenWidth(28),
                       decoration: BoxDecoration(
                         color: product.isFavourite
                             ? kPrimaryColor.withOpacity(0.15)

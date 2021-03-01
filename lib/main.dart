@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
-import './routs.dart';
-import './screens/splash/splash_screen.dart';
-import './theme.dart';
+import 'screens/error_page/loading_screen.dart';
+import 'screens/splash/splash_screen.dart';
+import 'screens/home/home_screen.dart';
+
 import 'models/Auth.dart';
 import 'models/products.dart';
-import 'screens/home/home_screen.dart';
-import 'screens/sign_in/sign_in_screen.dart';
+
+import './routs.dart';
+import './theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,13 +44,13 @@ class MyApp extends StatelessWidget {
               ? HomeScreen()
               : FutureBuilder(
                   future: auth.tryAutoLogin(),
-                  builder: (ctx, authResultSnapshot) => authResultSnapshot
-                              .connectionState ==
-                          ConnectionState.waiting
-                      ? SplashScreen() //add loading screen with jumping dots
-                      : SignInScreen(),
+                  builder: (ctx, authResultSnapshot) =>
+                      authResultSnapshot.connectionState ==
+                              ConnectionState.waiting
+                          ? LoadingScreen()
+                          : SplashScreen(),
                 ),
-          // initialRoute: TestGitHub.routeName,
+          // initialRoute: SplashScreen.routeName,
           routes: routes,
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/Cart.dart';
 import 'components/body.dart';
@@ -16,6 +17,8 @@ class CartScreen extends StatelessWidget {
   }
 
   AppBar buildAppBar(BuildContext context) {
+    final cart = Provider.of<Cart>(context);
+
     return AppBar(
       title: Column(
         children: [
@@ -24,7 +27,7 @@ class CartScreen extends StatelessWidget {
             style: TextStyle(color: Colors.black),
           ),
           Text(
-            '${demoCarts.length} items',
+            '${cart.itemCount} items',
             style: Theme.of(context).textTheme.caption,
           )
         ],

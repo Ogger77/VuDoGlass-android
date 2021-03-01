@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/constants.dart';
-import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
-import 'package:shop_app/size_config.dart';
+
+import '../../../constants.dart';
+import '../../../screens/sign_in/sign_in_screen.dart';
+import '../../../size_config.dart';
+import '../../../components/default_button.dart';
 
 import './splash_content.dart';
-import '../../../components/default_button.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -58,7 +59,7 @@ class _BodyState extends State<Body> {
               flex: 2,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(20),
+                  horizontal: getProportionScreenWidth(20),
                 ),
                 child: Column(
                   children: <Widget>[

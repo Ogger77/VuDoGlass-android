@@ -83,8 +83,8 @@ class _SignFormState extends State<SignForm> {
       }
     } catch (error) {
       print(error);
-      const errorMessage = 'Could not authenticate you. Please try again';
-      addError(error: errorMessage);
+      // const errorMessage = 'Could not authenticate you. Please try again';
+      // addError(error: errorMessage);
     }
     setState(() {
       _isLoading = false;
@@ -99,12 +99,13 @@ class _SignFormState extends State<SignForm> {
       key: _formKey,
       child: Column(
         children: [
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionScreenHeight(30)),
           buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionScreenHeight(30)),
           buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: getProportionScreenHeight(13)),
           FormError(errors: errors),
+          SizedBox(height: getProportionScreenHeight(10)),
           Row(
             children: [
               Checkbox(
@@ -122,13 +123,27 @@ class _SignFormState extends State<SignForm> {
               GestureDetector(
                 onTap: () => Navigator.pushNamed(
                     context, ForgotPasswordScreen.routeName),
-                child: Text(
-                  'Forgot Password',
-                  style: TextStyle(decoration: TextDecoration.underline),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    top: 10,
+                  ),
+                  child: Text(
+                    'Forgot password',
+                    style: TextStyle(
+                      shadows: [
+                        Shadow(color: kTextColor, offset: Offset(0, -5))
+                      ],
+                      color: Colors.transparent,
+                      decoration: TextDecoration.underline,
+                      decorationColor: kPrimaryColor,
+                      decorationThickness: 1,
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
+          SizedBox(height: getProportionScreenHeight(10)),
           Container(
             child: _isLoading
                 ? JumpingDotsButton()
@@ -167,10 +182,10 @@ class _SignFormState extends State<SignForm> {
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kPassNullError);
-          return '';
+          return;
         } else if (value.length < 8) {
           addError(error: kShortPassError);
-          return '';
+          return;
         }
         return null;
       },
@@ -203,10 +218,10 @@ class _SignFormState extends State<SignForm> {
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kEmailNullError);
-          return '';
+          return;
         } else if (!emailValidatorRegExp.hasMatch(value)) {
           addError(error: kInvalidEmailError);
-          return '';
+          return;
         }
         return null;
       },

@@ -16,8 +16,7 @@ class CustomAppBar extends PreferredSize {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+        padding: EdgeInsets.symmetric(horizontal: getProportionScreenWidth(20)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

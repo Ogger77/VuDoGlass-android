@@ -19,11 +19,11 @@ class SocialCard extends StatelessWidget {
       onTap: press,
       child: Container(
         margin: EdgeInsets.symmetric(
-          horizontal: getProportionateScreenWidth(10),
+          horizontal: getProportionScreenWidth(10),
         ),
-        padding: EdgeInsets.all(getProportionateScreenWidth(12)),
-        height: getProportionateScreenHeight(50),
-        width: getProportionateScreenWidth(50),
+        padding: EdgeInsets.all(getProportionScreenWidth(12)),
+        height: getProportionScreenHeight(50),
+        width: getProportionScreenWidth(50),
         decoration: BoxDecoration(
           color: Color(0xFFF5F6F9),
           shape: BoxShape.circle,

@@ -13,7 +13,7 @@ class JumpingDotsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: getProportionateScreenHeight(56),
+      height: getProportionScreenHeight(56),
       child: TextButton(
         style: TextButton.styleFrom(
           // primary: kPrimaryColor,

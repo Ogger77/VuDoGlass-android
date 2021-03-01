@@ -15,8 +15,8 @@ class RoundedIconBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: getProportionateScreenWidth(40),
-      width: getProportionateScreenWidth(40),
+      height: getProportionScreenWidth(40),
+      width: getProportionScreenWidth(40),
       child: FlatButton(
         padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(

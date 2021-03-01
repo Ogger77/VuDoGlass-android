@@ -16,7 +16,7 @@ class Body extends StatelessWidget {
       child: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: getProportionateScreenWidth(20),
+            horizontal: getProportionScreenWidth(20),
           ),
           child: Column(
             children: [
@@ -24,7 +24,7 @@ class Body extends StatelessWidget {
               Text(
                 'Forgot Password',
                 style: TextStyle(
-                  fontSize: getProportionateScreenWidth(28),
+                  fontSize: getProportionScreenWidth(28),
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
@@ -98,7 +98,7 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
             ),
           ),
           SizedBox(
-            height: getProportionateScreenHeight(30),
+            height: getProportionScreenHeight(30),
           ),
           FormError(errors: errors),
           SizedBox(height: SizeConfig.screenHeight * 0.1),
