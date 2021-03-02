@@ -59,13 +59,18 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         _isLoading = true;
       });
       try {
-        await dbRef.child(_currentUser.uid).update({
-          'firstName': firstNameController.text,
-          'lastName': lastNameController.text,
-          'phoneNumber': phoneNumberController.text,
-          'address': addressController.text,
-        });
-        Navigator.pushNamed(context, HomeScreen.routeName);
+        if (firstNameController.text.isNotEmpty &&
+            lastNameController.text.isNotEmpty &&
+            phoneNumberController.text.isNotEmpty &&
+            addressController.text.isNotEmpty) {
+          await dbRef.child(_currentUser.uid).update({
+            'firstName': firstNameController.text,
+            'lastName': lastNameController.text,
+            'phoneNumber': phoneNumberController.text,
+            'address': addressController.text,
+          });
+          Navigator.pushNamed(context, HomeScreen.routeName);
+        }
       } catch (err) {
         print(err.message);
       }
@@ -99,7 +104,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           buildAddressFormField(),
           SizedBox(height: getProportionScreenHeight(30)),
           FormError(errors: errors),
-          SizedBox(height: getProportionScreenHeight(40)),
+          SizedBox(height: getProportionScreenHeight(30)),
           Container(
             child: _isLoading
                 ? JumpingDotsButton()
