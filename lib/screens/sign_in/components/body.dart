@@ -51,7 +51,7 @@ class _BodyState extends State<Body> {
               setState(() => {user = userCredential})
             });
     showSnackBar(context);
-    var timer = new Timer(new Duration(seconds: 3),
+    new Timer(new Duration(seconds: 3),
         () => Navigator.pushNamed(context, HomeScreen.routeName));
   }
 

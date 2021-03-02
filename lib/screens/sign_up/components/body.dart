@@ -19,20 +19,20 @@ class Body extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
+                SizedBox(height: SizeConfig.screenHeight * 0.01), // 4%
                 Text(
                   "Register Account",
                   style: headingStyle,
                 ),
                 Text(
-                  'Complete your deatils or continue \nwith scocial media',
+                  'Complete your details or continue \nwith scocial media',
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
                     height: SizeConfig.screenHeight *
                         0.02), //8% of the screen total height
                 SignUpForm(),
-                SizedBox(height: SizeConfig.screenHeight * 0.07), //8% of
+                SizedBox(height: SizeConfig.screenHeight * 0.05), //8% of
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -52,9 +52,10 @@ class Body extends StatelessWidget {
                 ),
                 SizedBox(height: getProportionScreenHeight(20)),
                 Text(
-                  'By continuing, you are confirming that you agree \nwith our Term and Condition',
+                  'By continuing, you are confirming that you agree \nwith our Terms and Conditions',
                   textAlign: TextAlign.center,
                 ),
+                SizedBox(height: getProportionScreenHeight(27)),
               ],
             ),
           ),

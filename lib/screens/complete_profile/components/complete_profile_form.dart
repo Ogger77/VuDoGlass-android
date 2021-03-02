@@ -2,8 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-import '../../../screens/otp/otp_screen.dart';
+import '../../../screens/home/home_screen.dart';
 
+import '../../../components/jumpingDots_button.dart';
 import '../../../components/custom_suffix_icon.dart';
 import '../../../components/default_button.dart';
 import '../../../components/form_error.dart';
@@ -47,6 +48,42 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     }
   }
 
+  Future<void> _updateUsertoFb() async {
+    if (!_formKey.currentState.validate()) {
+      // Invalid!
+      return;
+    }
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      setState(() {
+        _isLoading = true;
+      });
+      try {
+        await dbRef.child(_currentUser.uid).update({
+          'firstName': firstNameController.text,
+          'lastName': lastNameController.text,
+          'phoneNumber': phoneNumberController.text,
+          'address': addressController.text,
+        });
+        Navigator.pushNamed(context, HomeScreen.routeName);
+      } catch (err) {
+        print(err.message);
+      }
+    }
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    phoneNumberController.dispose();
+    addressController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -60,20 +97,18 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           buildPhoneNumberFormField(),
           SizedBox(height: getProportionScreenHeight(30)),
           buildAddressFormField(),
+          SizedBox(height: getProportionScreenHeight(30)),
           FormError(errors: errors),
           SizedBox(height: getProportionScreenHeight(40)),
-          if (_isLoading) CircularProgressIndicator(),
-          DefaultButton(
-            text: _isLoading ? 'Working on it...' : 'Continue',
-            press: () {
-              if (_formKey.currentState.validate()) {
-                setState(() {
-                  _isLoading = true;
-                });
-                //Go to OTP screen
-                updateUsertoFb();
-              }
-            },
+          Container(
+            child: _isLoading
+                ? JumpingDotsButton()
+                : DefaultButton(
+                    text: 'Continue',
+                    press: () {
+                      _updateUsertoFb();
+                    },
+                  ),
           )
         ],
       ),
@@ -92,7 +127,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kAddressNullError);
-          return '';
+          return;
         }
         return null;
       },
@@ -120,9 +155,9 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kPhoneNumberNullError);
-          return '';
+          return;
         }
-        return null;
+        return;
       },
       decoration: InputDecoration(
         labelText: 'Phone Number',
@@ -161,7 +196,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kNameNullError);
-          return '';
+          return;
         }
         return null;
       },
@@ -174,32 +209,5 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         ),
       ),
     );
-  }
-
-  void updateUsertoFb() {
-    dbRef.child(_currentUser.uid).update({
-      'firstName': firstNameController.text,
-      'lastName': lastNameController.text,
-      'phoneNumber': phoneNumberController.text,
-      'address': addressController.text,
-    }).then((res) {
-      _isLoading = false;
-      Navigator.pushNamed(context, OtpScreen.routeName);
-    }).catchError((err) {
-      print(err.message);
-      setState(() {
-        addError(error: kNoAccountExist);
-        _isLoading = false;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    firstNameController.dispose();
-    lastNameController.dispose();
-    phoneNumberController.dispose();
-    addressController.dispose();
   }
 }

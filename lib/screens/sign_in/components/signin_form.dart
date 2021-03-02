@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +10,6 @@ import '../../../components/form_error.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-import '../../../models/http_exception.dart';
 import '../../../models/Auth.dart';
 
 import '../../../screens/home/home_screen.dart';
@@ -77,21 +74,20 @@ class _SignFormState extends State<SignForm> {
       );
 
       Navigator.pushNamed(context, HomeScreen.routeName);
-    } on HttpException catch (error) {
-      if (error.toString().contains('EMAIL_NOT_FOUND')) {
-        addError(error: kEmailNotFound);
-      }
     } catch (error) {
       print(error);
-      // const errorMessage = 'Could not authenticate you. Please try again';
-      // addError(error: errorMessage);
+      var errorMessage = 'Could not authenticate you. Please try again';
+      if (error.toString().contains('EMAIL_NOT_FOUND')) {
+        errorMessage = kEmailNotFound;
+      } else if (error.toString().contains('INVALID_PASSWORD')) {
+        errorMessage = kInvalidPassword;
+      }
+      addError(error: errorMessage);
     }
     setState(() {
       _isLoading = false;
     });
   }
-
-  //sign-in with google
 
   @override
   Widget build(BuildContext context) {
@@ -151,11 +147,7 @@ class _SignFormState extends State<SignForm> {
                     // text: _isLoading ? 'Working on it ...' : 'Continue',
                     text: 'Continue',
                     press: () {
-                      // if (_formKey.currentState.validate()) {
-                      //   _formKey.currentState.save();
                       _submit();
-                      // }
-                      // return;
                     },
                   ),
           ),

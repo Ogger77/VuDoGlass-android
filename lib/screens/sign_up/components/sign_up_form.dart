@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 import '../../complete_profile/complete_profile_screen.dart';
+import '../../../components/jumpingDots_button.dart';
 import '../../../components/custom_suffix_icon.dart';
 import '../../../components/default_button.dart';
 import '../../../components/form_error.dart';
@@ -45,6 +46,40 @@ class _SignUpFormState extends State<SignUpForm> {
     }
   }
 
+  Future<void> registertoFb() async {
+    if (!_formKey.currentState.validate()) {
+      // Invalid!
+      return;
+    }
+    _formKey.currentState.save();
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      if (passwordController.text == confirmPassController.text) {
+        var result = await _auth.createUserWithEmailAndPassword(
+            email: emailController.text, password: passwordController.text);
+        await dbRef.child(result.user.uid).set({
+          'email': emailController.text,
+        });
+        Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+      }
+    } catch (err) {
+      print(err.message);
+    }
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPassController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -56,18 +91,18 @@ class _SignUpFormState extends State<SignUpForm> {
           buildPasswordFormField(),
           SizedBox(height: getProportionScreenHeight(30)),
           buildConfirmPassFied(),
+          SizedBox(height: getProportionScreenHeight(30)),
           FormError(errors: errors),
-          SizedBox(height: getProportionScreenHeight(40)),
-          DefaultButton(
-            text: _isLoading ? 'Working on it...' : 'Continue',
-            press: () {
-              if (_formKey.currentState.validate()) {
-                setState(() {
-                  _isLoading = true;
-                });
-                registertoFb();
-              }
-            },
+          SizedBox(height: getProportionScreenHeight(25)),
+          Container(
+            child: _isLoading
+                ? JumpingDotsButton()
+                : DefaultButton(
+                    text: 'Continue',
+                    press: () {
+                      registertoFb();
+                    },
+                  ),
           ),
         ],
       ),
@@ -86,10 +121,11 @@ class _SignUpFormState extends State<SignUpForm> {
       },
       validator: (value) {
         if (value.isEmpty) {
-          return '';
+          addError(error: kMatchPassError);
+          return;
         } else if (passwordController.text != value) {
           addError(error: kMatchPassError);
-          return '';
+          return;
         }
         return null;
       },
@@ -120,10 +156,10 @@ class _SignUpFormState extends State<SignUpForm> {
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kPassNullError);
-          return '';
+          return;
         } else if (value.length < 8) {
           addError(error: kShortPassError);
-          return '';
+          return;
         }
         return null;
       },
@@ -153,10 +189,10 @@ class _SignUpFormState extends State<SignUpForm> {
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kEmailNullError);
-          return '';
+          return;
         } else if (!emailValidatorRegExp.hasMatch(value)) {
           addError(error: kInvalidEmailError);
-          return '';
+          return;
         }
         return null;
       },
@@ -169,33 +205,5 @@ class _SignUpFormState extends State<SignUpForm> {
         ),
       ),
     );
-  }
-
-  void registertoFb() {
-    _auth
-        .createUserWithEmailAndPassword(
-            email: emailController.text, password: passwordController.text)
-        .then((result) {
-      dbRef.child(result.user.uid).set({
-        'email': emailController.text,
-      }).then((res) {
-        _isLoading = false;
-        Navigator.pushNamed(context, CompleteProfileScreen.routeName);
-      });
-    }).catchError((err) {
-      print(err.message);
-      setState(() {
-        addError(error: kNoAccountExist);
-        _isLoading = false;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    confirmPassController.dispose();
   }
 }

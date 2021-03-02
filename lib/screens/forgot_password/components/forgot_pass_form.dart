@@ -47,8 +47,8 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
     });
     try {
       await auth.sendPasswordResetEmail(email: email);
-      var timer =
-          new Timer(new Duration(seconds: 4), () => showSnackBar(context));
+
+      new Timer(new Duration(seconds: 4), () => showSnackBar(context));
     } on HttpException catch (error) {
       if (error.toString().contains('EMAIL_NOT_FOUND')) {
         addError(error: kEmailNotFound);

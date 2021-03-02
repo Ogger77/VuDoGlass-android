@@ -22,7 +22,7 @@ class Body extends StatelessWidget {
                 style: headingStyle,
               ),
               Text(
-                'Complete your details or continue \nwith social media',
+                'Complete your profile details',
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: SizeConfig.screenHeight * 0.02),
