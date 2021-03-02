@@ -151,11 +151,11 @@ class _SignFormState extends State<SignForm> {
                     // text: _isLoading ? 'Working on it ...' : 'Continue',
                     text: 'Continue',
                     press: () {
-                      if (_formKey.currentState.validate()) {
-                        _formKey.currentState.save();
-                        _submit();
-                      }
-                      return;
+                      // if (_formKey.currentState.validate()) {
+                      //   _formKey.currentState.save();
+                      _submit();
+                      // }
+                      // return;
                     },
                   ),
           ),
