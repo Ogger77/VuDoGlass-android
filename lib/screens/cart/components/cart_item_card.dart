@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../models/Cart.dart';
+import 'package:shop_app/models/Cart.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -11,7 +10,7 @@ class CartItemCard extends StatelessWidget {
     @required this.cart,
   }) : super(key: key);
 
-  final CartItem cart;
+  final Cart cart;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -46,7 +45,7 @@ class CartItemCard extends StatelessWidget {
                 style: TextStyle(color: kPrimaryColor),
                 children: [
                   TextSpan(
-                    text: ' x${cart.numOfItems}',
+                    text: ' x${cart.numOfItem}',
                     style: TextStyle(color: kTextColor),
                   ),
                 ],

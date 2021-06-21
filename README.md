@@ -1,16 +1,35 @@
-# shop_app
+# VuDoGlass shop_app
 
-A new Flutter project.
+![Build Status](https://img.shields.io/badge/test-pass-brightgreen)
+![version](https://img.shields.io/badge/version-1.5.0-blue?style=flat-square)
+![Flutter](https://img.shields.io/badge/Flutter-2.0-blue)
+
+An android shopping app demo with Firebase back-end.
+Intergrated Oauth with Google and Facebook sign-in.
+Utilize Shared-Preference to remember user credential.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+You need [Flutter](https://flutter.dev/) and [Graddle](https://gradle.org/) to build the app.
 
-A few resources to get you started if this is your first Flutter project:
+### Usage
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![](image12.gif)
+![](image11.gif)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Built With
+
+- [Flutter](https://img.shields.io/badge/Flutter-2.0-blue)
+- [Firebase](https://firebase.google.com/)
+
+## Authors
+
+- **Dinh Vu** - *https://ogger77.github.io/*
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+
+## Acknowledgments
+
+- UI design made by [The Flutter Way](https://www.youtube.com/channel/UCJm7i4g4z7ZGcJA_HKHLCVw).

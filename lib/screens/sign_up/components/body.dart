@@ -44,10 +44,6 @@ class Body extends StatelessWidget {
                       icon: 'assets/icons/facebook-2.svg',
                       press: () {},
                     ),
-                    SocialCard(
-                      icon: 'assets/icons/twitter.svg',
-                      press: () {},
-                    ),
                   ],
                 ),
                 SizedBox(height: getProportionScreenHeight(20)),

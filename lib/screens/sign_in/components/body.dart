@@ -169,13 +169,6 @@ class _BodyState extends State<Body> {
                         signInWithFacebook();
                       },
                     ),
-                    SocialCard(
-                      icon: 'assets/icons/twitter.svg',
-                      press: () {
-                        //wait for approval from twitter
-                        // signInWithTwitter();
-                      },
-                    ),
                   ],
                 ),
                 SizedBox(

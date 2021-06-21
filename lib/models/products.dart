@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -41,47 +39,47 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> fetchAndSetProducts() async {
-    // final filterString =
-    //     filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
-    var url =
-        'https://shop-app-ad2bb-default-rtdb.firebaseio.com/products.json';
-    try {
-      final response = await http.get(url);
-      final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      if (extractedData == null) {
-        return;
-      }
-      url =
-          'https://shop-app-ad2bb-default-rtdb.firebaseio.com//userFavorites/$userId.json';
-      final favoriteResponse = await http.get(url);
-      final favoriteData = json.decode(favoriteResponse.body);
+  // Future<void> fetchAndSetProducts() async {
+  //   // final filterString =
+  //   //     filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
+  //   var url =
+  //       'https://shop-app-ad2bb-default-rtdb.firebaseio.com/products.json';
+  //   try {
+  //     final response = await http.get(url);
+  //     final extractedData = json.decode(response.body) as Map<String, dynamic>;
+  //     if (extractedData == null) {
+  //       return;
+  //     }
+  //     url =
+  //         'https://shop-app-ad2bb-default-rtdb.firebaseio.com//userFavorites/$userId.json';
+  //     final favoriteResponse = await http.get(url);
+  //     final favoriteData = json.decode(favoriteResponse.body);
 
-      final List<Product> loadedProducts = [];
-      extractedData.forEach(
-        (prodId, prodData) {
-          loadedProducts.add(
-            Product(
-              id: prodData['id'],
-              title: prodData['title'],
-              description: prodData['description'],
-              price: prodData['price'],
-              //?? check if the favoriteData[prodId] is null -> if null return false
-              isFavourite:
-                  favoriteData == null ? false : favoriteData[prodId] ?? false,
-              images: prodData['images'],
-              colors: prodData['colors'],
-              isPopular: prodData['isPopular'],
-            ),
-          );
-        },
-      );
-      _items = loadedProducts;
-      notifyListeners();
-    } catch (error) {
-      throw (error);
-    }
-  }
+  //     final List<Product> loadedProducts = [];
+  //     extractedData.forEach(
+  //       (prodId, prodData) {
+  //         loadedProducts.add(
+  //           Product(
+  //             id: prodData['id'],
+  //             title: prodData['title'],
+  //             description: prodData['description'],
+  //             price: prodData['price'],
+  //             //?? check if the favoriteData[prodId] is null -> if null return false
+  //             isFavourite:
+  //                 favoriteData == null ? false : favoriteData[prodId] ?? false,
+  //             images: prodData['images'],
+  //             colors: prodData['colors'],
+  //             isPopular: prodData['isPopular'],
+  //           ),
+  //         );
+  //       },
+  //     );
+  //     _items = loadedProducts;
+  //     notifyListeners();
+  //   } catch (error) {
+  //     throw (error);
+  //   }
+  // }
 
   Future<void> deleteProduct(String id) async {
     final url =
