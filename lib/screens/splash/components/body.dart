@@ -18,17 +18,17 @@ class _BodyState extends State<Body> {
   List<Map<String, String>> splashData = [
     {
       'text': "Welcome to VuDo glass, Let's shop!",
-      "image": 'assets/images/splash_1.png'
+      "image": 'assets/images/main-1.png'
     },
     {
       'text':
           'We help people getting prescription glasses \nwith an affordable price',
-      'image': 'assets/images/splash_2.png'
+      'image': 'assets/images/main-2.png'
     },
     {
       'text':
           'We show the easy and convenient way to shop. \nCut all the hassle',
-      'image': 'assets/images/splash_3.png'
+      'image': 'assets/images/main-3.png'
     },
   ];
   @override

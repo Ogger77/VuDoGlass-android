@@ -24,7 +24,7 @@ class IconBtnWithCounter extends StatelessWidget {
       //make the shape of rippling effect circle
       borderRadius: BorderRadius.circular(50),
       child: Stack(
-        overflow: Overflow.visible,
+        clipBehavior: Clip.none,
         children: [
           Container(
             padding: EdgeInsets.all(getProportionScreenWidth(12)),

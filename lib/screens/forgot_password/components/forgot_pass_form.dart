@@ -76,7 +76,7 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
         },
       ),
     );
-    Scaffold.of(context).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override

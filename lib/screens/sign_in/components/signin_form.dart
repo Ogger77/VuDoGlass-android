@@ -73,7 +73,7 @@ class _SignFormState extends State<SignForm> {
         _authData['password'],
       );
 
-      Navigator.pushNamed(context, HomeScreen.routeName);
+      Navigator.of(context).pushNamed(HomeScreen.routeName);
     } catch (error) {
       print(error);
       var errorMessage = 'Could not authenticate you. Please try again';
@@ -117,8 +117,8 @@ class _SignFormState extends State<SignForm> {
               Text('Remember me'),
               Spacer(),
               GestureDetector(
-                onTap: () => Navigator.pushNamed(
-                    context, ForgotPasswordScreen.routeName),
+                onTap: () => Navigator.of(context)
+                    .pushNamed(ForgotPasswordScreen.routeName),
                 child: Padding(
                   padding: EdgeInsets.only(
                     top: 10,

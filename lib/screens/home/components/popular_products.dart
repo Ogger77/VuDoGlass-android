@@ -7,11 +7,16 @@ import '../../../size_config.dart';
 import 'product_card.dart';
 import 'section_title.dart';
 
-class PopularProducts extends StatelessWidget {
+class PopularProducts extends StatefulWidget {
   const PopularProducts({
     Key key,
   }) : super(key: key);
 
+  @override
+  _PopularProductsState createState() => _PopularProductsState();
+}
+
+class _PopularProductsState extends State<PopularProducts> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,12 +34,14 @@ class PopularProducts extends StatelessWidget {
                 demoProducts.length,
                 (index) => ProductCard(
                   product: demoProducts[index],
-                  press: () => Navigator.pushNamed(
-                    context,
-                    DetailsScreen.routeName,
-                    arguments:
-                        ProductDetailArguments(product: demoProducts[index]),
-                  ),
+                  press: () => {
+                    Navigator.pushNamed(
+                      context,
+                      DetailsScreen.routeName,
+                      arguments:
+                          ProductDetailArguments(product: demoProducts[index]),
+                    ),
+                  },
                 ),
               ),
               SizedBox(width: getProportionScreenWidth(20)),

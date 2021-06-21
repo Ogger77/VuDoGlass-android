@@ -24,7 +24,7 @@ class JumpingDots extends StatefulWidget {
 class _JumpingDotsState extends State<JumpingDots>
     with TickerProviderStateMixin {
   List<AnimationController> _animationControllers;
-  List<Animation<double>> _animations = List();
+  List<Animation<double>> _animations = [];
   int animationDuration = 200;
   @override
   void initState() {

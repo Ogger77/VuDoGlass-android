@@ -165,6 +165,7 @@ class _OtpFormState extends State<OtpForm> {
   }
 
   void showSnackbar(String message) {
+    // ignore: deprecated_member_use
     _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text(message)));
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_app/services/firebase_auth_service.dart';
 
 import 'screens/error_page/loading_screen.dart';
 import 'screens/splash/splash_screen.dart';
@@ -11,6 +12,7 @@ import 'models/products.dart';
 
 import './routs.dart';
 import './theme.dart';
+import 'services/image_picker_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +26,13 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (ctx) => Auth(),
+          create: (context) => Auth(),
+        ),
+        Provider<FirebaseAuthService>(
+          create: (_) => FirebaseAuthService(),
+        ),
+        Provider<ImagePickerService>(
+          create: (_) => ImagePickerService(),
         ),
         ChangeNotifierProxyProvider<Auth, Products>(
           create: null,

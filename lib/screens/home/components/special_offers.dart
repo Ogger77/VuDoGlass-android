@@ -22,14 +22,14 @@ class SpecialOffers extends StatelessWidget {
           child: Row(
             children: [
               SpecialOfferCard(
-                image: 'assets/images/Image Banner 2.png',
-                category: 'Smartphones',
+                image: 'assets/images/image-banner.png',
+                category: 'Beach-pair',
                 numOfBrands: 18,
                 press: () {},
               ),
               SpecialOfferCard(
-                image: 'assets/images/Image Banner 3.png',
-                category: 'Fashion',
+                image: 'assets/images/image-banner-3.jpg',
+                category: 'Elegance',
                 numOfBrands: 24,
                 press: () {},
               ),
@@ -60,7 +60,7 @@ class SpecialOfferCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(left: getProportionScreenWidth(20)),
       child: SizedBox(
-        width: getProportionScreenWidth(242),
+        width: getProportionScreenWidth(150),
         height: getProportionScreenWidth(100),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
@@ -94,7 +94,7 @@ class SpecialOfferCard extends StatelessWidget {
                       TextSpan(
                         text: '$category\n',
                         style: TextStyle(
-                          fontSize: getProportionScreenWidth(18),
+                          fontSize: getProportionScreenWidth(19),
                           fontWeight: FontWeight.bold,
                         ),
                       ),

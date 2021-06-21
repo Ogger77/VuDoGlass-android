@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/models/Auth.dart';
@@ -6,9 +8,15 @@ import 'package:shop_app/screens/splash/splash_screen.dart';
 import 'profile_menu.dart';
 import 'profile_pic.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
+    void Function(File pickedImage) _pickedImage;
     return Column(
       children: [
         ProfilePic(),

@@ -11,7 +11,6 @@ import '../../../size_config.dart';
 import '../../../components/no_account_text.dart';
 import '../../../components/social_card.dart';
 
-import 'Twitter_login_screen.dart';
 import 'custom_web_view.dart';
 import 'signin_form.dart';
 
@@ -82,26 +81,26 @@ class _BodyState extends State<Body> {
   }
 
   //twitter sign in
-  void signInWithTwitter() async {
-    var result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => TwitterLoginScreen(
-          consumerKey: 'QGgAKbMUIAgmLOQbmOK81Au77',
-          consumerSecret: 'kFodEiMe9mBidslRxlTZDkonfLZdN98j7PZLlJtjCdGgjLRLqO',
-          oauthCallbackHandler:
-              'https://shop-app-ad2bb.firebaseapp.com/__/auth/handler',
-        ),
-      ),
-    );
-    print(result);
-    // Create a credential from the access token
-    final AuthCredential twitterAuthCredential = TwitterAuthProvider.credential(
-        accessToken: result.token, secret: result.secret);
+  // void signInWithTwitter() async {
+  //   var result = await Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => TwitterLoginScreen(
+  //         consumerKey: 'QGgAKbMUIAgmLOQbmOK81Au77',
+  //         consumerSecret: 'kFodEiMe9mBidslRxlTZDkonfLZdN98j7PZLlJtjCdGgjLRLqO',
+  //         oauthCallbackHandler:
+  //             'https://shop-app-ad2bb.firebaseapp.com/__/auth/handler',
+  //       ),
+  //     ),
+  //   );
+  //   print(result);
+  //   // Create a credential from the access token
+  //   final AuthCredential twitterAuthCredential = TwitterAuthProvider.credential(
+  //       accessToken: result.token, secret: result.secret);
 
-    // Once signed in, return the UserCredential
-    await FirebaseAuth.instance.signInWithCredential(twitterAuthCredential);
-  }
+  //   // Once signed in, return the UserCredential
+  //   await FirebaseAuth.instance.signInWithCredential(twitterAuthCredential);
+  // }
 
   void showSnackBar(BuildContext context) async {
     final snackBar = SnackBar(
@@ -118,7 +117,7 @@ class _BodyState extends State<Body> {
         },
       ),
     );
-    Scaffold.of(context).showSnackBar(snackBar);
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -174,7 +173,7 @@ class _BodyState extends State<Body> {
                       icon: 'assets/icons/twitter.svg',
                       press: () {
                         //wait for approval from twitter
-                        signInWithTwitter();
+                        // signInWithTwitter();
                       },
                     ),
                   ],

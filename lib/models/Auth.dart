@@ -12,6 +12,7 @@ class Auth with ChangeNotifier {
   String _userId;
   String _userPhone;
   Timer _authTimer;
+  File _userAvt;
 
   bool get isAuth {
     return token != null;
@@ -32,6 +33,10 @@ class Auth with ChangeNotifier {
 
   String get userPhone {
     return _userPhone;
+  }
+
+  File get userAvt {
+    return _userAvt;
   }
 
   getRemmeberMeValue() async {
@@ -72,6 +77,7 @@ class Auth with ChangeNotifier {
       );
       _autoLogout();
       notifyListeners();
+      print('before shared' + _userId);
       final prefs = await SharedPreferences.getInstance();
 
       if (prefs.containsKey('kRemember')) {
@@ -83,6 +89,7 @@ class Auth with ChangeNotifier {
           },
         );
         prefs.setString('userData', userData);
+        print('in shared' + _userId);
       }
     } catch (error) {
       throw error;
@@ -115,6 +122,7 @@ class Auth with ChangeNotifier {
 
     _token = extractedUserData['token'];
     _userId = extractedUserData['userId'];
+    print('autologin' + _userId);
     _expiryDate = expiryDate;
     notifyListeners();
     _autoLogout();
@@ -132,8 +140,9 @@ class Auth with ChangeNotifier {
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
 
-    prefs.remove('userData');
-    prefs.remove('kRemember');
+    // prefs.remove('userData');
+    // prefs.remove('kRemember');
+    prefs.clear();
   }
 
   void _autoLogout() {

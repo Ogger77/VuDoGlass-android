@@ -81,10 +81,9 @@ List<Product> demoProducts = [
   Product(
     id: '1',
     images: [
-      "assets/images/ps4_console_white_1.png",
-      "assets/images/ps4_console_white_2.png",
-      "assets/images/ps4_console_white_3.png",
-      "assets/images/ps4_console_white_4.png",
+      "assets/images/image-1-front.png",
+      "assets/images/image-1-back.png",
+      "assets/images/image-1-side.png",
     ],
     colors: [
       Color(0xFFF6625E),
@@ -92,9 +91,10 @@ List<Product> demoProducts = [
       Color(0xFFDECB9C),
       Colors.white,
     ],
-    title: "Wireless Controller for PS4™",
+    title: "Metal temple eyeglasses",
     price: 64.99,
-    description: description,
+    description:
+        'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum',
     rating: 4.8,
     isFavourite: true,
     isPopular: true,
@@ -102,7 +102,9 @@ List<Product> demoProducts = [
   Product(
     id: '2',
     images: [
-      "assets/images/Image Popular Product 2.png",
+      "assets/images/image-2-front.jpg",
+      "assets/images/image-2-back.jpg",
+      "assets/images/image-2-side.jpg",
     ],
     colors: [
       Color(0xFFF6625E),
@@ -110,16 +112,19 @@ List<Product> demoProducts = [
       Color(0xFFDECB9C),
       Colors.white,
     ],
-    title: "Nike Sport White - Man Pant",
+    title: "Thin metal acetate rim",
     price: 50.5,
-    description: description,
+    description:
+        'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum',
     rating: 4.1,
     isPopular: true,
   ),
   Product(
     id: '3',
     images: [
-      "assets/images/glap.png",
+      "assets/images/image-3-front.png",
+      "assets/images/image-3-back.png",
+      "assets/images/image-3-side.png",
     ],
     colors: [
       Color(0xFFF6625E),
@@ -127,31 +132,12 @@ List<Product> demoProducts = [
       Color(0xFFDECB9C),
       Colors.white,
     ],
-    title: "Gloves XC Omega - Polygon",
+    title: "Metal bar frame",
     price: 36.55,
-    description: description,
+    description:
+        'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum',
     rating: 4.1,
     isFavourite: true,
     isPopular: true,
   ),
-  Product(
-    id: '4',
-    images: [
-      "assets/images/wireless headset.png",
-    ],
-    colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "Logitech Head",
-    price: 20.20,
-    description: description,
-    rating: 4.1,
-    isFavourite: true,
-  ),
 ];
-
-const String description =
-    "Wireless Controller for PS4™ gives you what you want in your gaming from over precision control your games to sharing …";

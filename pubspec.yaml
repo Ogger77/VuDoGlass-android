@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.0
-  flutter_svg: ^0.18.0
+  flutter_svg: ^0.19.3
   provider: ^4.3.3
   firebase_core: ^0.7.0
   cloud_firestore: ^0.16.0
@@ -25,7 +25,9 @@ dependencies:
   google_sign_in: ^4.5.4
   flutter_webview_plugin: ^0.3.10+1
   flutter_twitter_login: ^1.1.0
-  oauth1: ^1.0.6
+  # oauth1: ^1.0.6
+  image_picker: ^0.6.7+22
+  # cloud_firestore_platform_interface: ^4.0.0
 
 dev_dependencies:
   flutter_test:
