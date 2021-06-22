@@ -4,9 +4,9 @@
 ![version](https://img.shields.io/badge/version-1.5.0-blue?style=flat-square)
 ![Flutter](https://img.shields.io/badge/Flutter-2.0-blue)
 
-An android shopping app demo with Firebase back-end.
-Intergrated Oauth with Google and Facebook sign-in.
-Utilize Shared-Preference to remember user credential.
+An android shopping app demo with Firebase back-end.  
+Intergrated Oauth with Google and Facebook sign-in.  
+Utilize Shared-Preference to remember user credential.  
 
 ## Getting Started
 
